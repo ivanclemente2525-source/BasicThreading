@@ -23,32 +23,25 @@ namespace BasicThreading
             InitializeComponent();
         }
 
-        private void btnRun_Click(object sender, EventArgs e)
+               private void btnRun_Click(object sender, EventArgs e)
         {
             // To open Console Window
             AllocConsole();
 
-            Console.SetOut(new System.IO.StreamWriter(Console.OpenStandardOutput()) { AutoFlush = true });
+            Console.WriteLine("-Before starting thread-");
+            Thread ThreadA = new Thread(new ThreadStart(MyThreadClass.Thread1));
+            Thread ThreadB = new Thread(new ThreadStart(MyThreadClass.Thread1));
+            ThreadA.Name = "Thread A";
+            ThreadB.Name = "Thread B";
 
-            Console.WriteLine("-Before starting thread-"); 
-
-            ThreadStart delThread = new ThreadStart(MyThreadClass.Thread1); 
-
-            Thread ThreadA = new Thread(delThread); 
-            ThreadA.Name = "Thread A Process"; 
-
-            Thread ThreadB = new Thread(delThread); 
-            ThreadB.Name = "Thread B Process"; 
-
-            ThreadA.Start(); 
-            ThreadB.Start(); 
+            ThreadA.Start();
+            ThreadB.Start();
 
             ThreadA.Join();
-            ThreadB.Join(); 
+            ThreadB.Join();
+            Console.WriteLine("-End of Thread-");
 
-            Console.WriteLine("-End of Thread-"); 
-
-            lblStatus.Text = "-End of Thread-"; 
+            lblStatus.Text = "-End of Thread-";
         }
     }
 }
